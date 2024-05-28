@@ -22,6 +22,10 @@ const Chat = () => {
     file: null,
     url: "",
   });
+   
+  // Inside your Chat component render method
+  const messages = chat?.messages || []; // This will prevent the error if someObject is undefined
+
 
   const { currentUser } = useUserStore();
   const { chatId, user, isCurrentUserBlocked, isReceiverBlocked } =
@@ -31,7 +35,7 @@ const Chat = () => {
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chat.messages]);
+  }, [messages]);
 
   useEffect(() => {
     const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
